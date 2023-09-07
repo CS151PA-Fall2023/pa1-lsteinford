@@ -13,18 +13,20 @@ using namespace std;
 
 int main()
 {
-        ifstream inputFile;
-        openInputFile(inputFile, "graduates2015.csv");
+        ifstream inputFile; // file variable
+        openInputFile(inputFile, "graduates2015.csv"); // opens the file
 
-        int SIZE = 45;
-        GradEmploymentData Majors[SIZE];
+        int SIZE = 45; // variable for size of array
+        GradEmploymentData Majors[SIZE]; // array of GradEmploymentData struct
         
-        readFile(inputFile, Majors);
+        readFile(inputFile, Majors); // reads file and puts data into Majors array
 
-        bool cont = true;
+        //while loop will bring user back to the home screen after each option
+        bool cont = true; 
         while(cont){
                 homeScreen();
-
+                
+                // input validation
                 int userInput;
                 do{
                         cout << "Select a Menu: ";
@@ -33,7 +35,8 @@ int main()
                 }while (userInput < 1 || userInput > 12);
 
                 cin.ignore();
-
+                
+                
                 switch (userInput){
                         case 1: 
                                 highMeanSalary(Majors, SIZE);

@@ -10,6 +10,12 @@
  */
 #include "analytics.h"
 
+/**
+ * @brief Opens the ifstream file and checks for valid file name
+ * 
+ * @param file 
+ * @param fileName 
+ */
 void openInputFile(ifstream &file, string fileName)
 {   
     file.open(fileName);
@@ -19,24 +25,33 @@ void openInputFile(ifstream &file, string fileName)
     }
 }
 
+/**
+ * @brief Read file data to GradEmploymentData and add to array
+ * 
+ * @param file 
+ * @param a 
+ */
 void readFile(ifstream &file, GradEmploymentData a[])
 {
-    string header;
-    char delim;
-    int i = 0;
+    string header; // variable for first line
+    char delim; // variable for ',' char between values
+    int i = 0; // counter for array position
 
     getline(file, header);
 
     while(file.peek() != EOF){
         GradEmploymentData newData;
 
-        // If loop to prevent duplicate line added to vector
+        // if loop to prevent last line from being entered twice
         if (!(file >> newData.demographicsTotal)) {
             break;  
         }
         
         file >> delim;
 
+        // check if first char of string is '"'
+        // if so, read until the next one
+        //if not, read string until ','
         if(file.peek() == '"'){
             file >> delim;
             getline(file, newData.educationMajor, '"');
@@ -61,6 +76,10 @@ void readFile(ifstream &file, GradEmploymentData a[])
     }
 }
 
+/**
+ * @brief Code for homescreen
+ * 
+ */
 void homeScreen(){
     cout << "2015 National Survey of Recent College Graduate" << endl;
     cout << "1. Top 10 Majors with the Highest Mean Salary" << endl;
@@ -77,11 +96,15 @@ void homeScreen(){
     cout << "12. Exit\n" << endl;
 }
 
+/**
+ * @brief Code used to view struct in early stages
+ * 
+ * @param a 
+ * @param size 
+ */
 void showStruct(GradEmploymentData a[], int size)
 {
-    int vectorSize = size;
-
-    for (int i = 0; i < vectorSize; i++)
+    for (int i = 0; i < size; i++)
     {
         cout << a[i].demographicsTotal << ",";
         cout << a[i].educationMajor << ",";
@@ -98,6 +121,12 @@ void showStruct(GradEmploymentData a[], int size)
     }
 }
 
+/**
+ * @brief function to sort by highest mean salary
+ * 
+ * @param a 
+ * @param size 
+ */
 void highMeanSalary(GradEmploymentData a[], int size){
     bool swap;
     GradEmploymentData temp;
@@ -122,6 +151,12 @@ void highMeanSalary(GradEmploymentData a[], int size){
     
 }
 
+/**
+ * @brief function to bubble sort by lowest mean salary
+ * 
+ * @param a 
+ * @param size 
+ */
 void lowMeanSalary(GradEmploymentData a[], int size){
     bool swap;
     GradEmploymentData temp;
@@ -145,6 +180,12 @@ void lowMeanSalary(GradEmploymentData a[], int size){
     }
 }
 
+/**
+ * @brief function to bubble sort by highest median salary
+ * 
+ * @param a 
+ * @param size 
+ */
 void highMedianSalary(GradEmploymentData a[], int size){
     bool swap;
     GradEmploymentData temp;
@@ -168,6 +209,12 @@ void highMedianSalary(GradEmploymentData a[], int size){
     }
 }
 
+/**
+ * @brief bubble sort lowest mean salary
+ * 
+ * @param a 
+ * @param size 
+ */
 void lowMedianSalary(GradEmploymentData a[], int size){
     bool swap;
     GradEmploymentData temp;
@@ -191,6 +238,12 @@ void lowMedianSalary(GradEmploymentData a[], int size){
     }
 }
 
+/**
+ * @brief bubble sort highest asian demographic
+ * 
+ * @param a 
+ * @param size 
+ */
 void highAsian(GradEmploymentData a[], int size){
     bool swap;
     GradEmploymentData temp;
@@ -214,6 +267,13 @@ void highAsian(GradEmploymentData a[], int size){
     }
 }
 
+
+/**
+ * @brief bubble sort lowest asian demographic
+ * 
+ * @param a 
+ * @param size 
+ */
 void lowAsian(GradEmploymentData a[], int size){
     bool swap;
     GradEmploymentData temp;
@@ -237,6 +297,12 @@ void lowAsian(GradEmploymentData a[], int size){
     }
 }
 
+/**
+ * @brief bubble sort highest minority demographic
+ * 
+ * @param a 
+ * @param size 
+ */
 void highMinority(GradEmploymentData a[], int size){
     bool swap;
     GradEmploymentData temp;
@@ -260,6 +326,12 @@ void highMinority(GradEmploymentData a[], int size){
     }
 }
 
+/**
+ * @brief bubble sort lowest minority demographic
+ * 
+ * @param a 
+ * @param size 
+ */
 void lowMinority(GradEmploymentData a[], int size){
     bool swap;
     GradEmploymentData temp;
@@ -283,6 +355,12 @@ void lowMinority(GradEmploymentData a[], int size){
     }
 }
 
+/**
+ * @brief bubble sort highest female demographic
+ * 
+ * @param a 
+ * @param size 
+ */
 void highFemale(GradEmploymentData a[], int size){
     bool swap;
     GradEmploymentData temp;
@@ -306,6 +384,12 @@ void highFemale(GradEmploymentData a[], int size){
     }
 }
 
+/**
+ * @brief bubble sort lowest female demographic
+ * 
+ * @param a 
+ * @param size 
+ */
 void lowFemale(GradEmploymentData a[], int size){
     bool swap;
     GradEmploymentData temp;
@@ -329,6 +413,13 @@ void lowFemale(GradEmploymentData a[], int size){
     }
 }
 
+/**
+ * @brief asks user to enter a major
+ *        displays all information about requested major
+ * 
+ * @param a 
+ * @param size 
+ */
 void specificMajor(GradEmploymentData a[], int size){
     string majorName;
     GradEmploymentData temp;
